@@ -1,0 +1,52 @@
+function onLoad()
+  self.attachInvisibleHider("hide", true, {"Red"})
+end
+function onObjectDrop()
+ findByDistance()
+end
+--Lists any figurine within 5 units of the tool.
+function findByDistance()
+    --print("[b]---Find By Distance---[/b]")
+    --This is very similar to how we did findByTag()
+    --We are also using tag to narrow it down, which isn't strictly necessary
+    local allObjects = getAllObjects()
+    local foundFigurine = false
+    self.attachInvisibleHider("hide", true, {"Red"})
+
+    for _, object in ipairs(allObjects) do
+      if object.tag == "Figurine" then
+            --I have a pre-written function to get distance to objects
+          local distance = findProximity(object.getPosition(), self)
+            --print("Distance" .. distance)
+            --Here is the check for distance
+          if object.getName() == "Red ISR" or object.getName() == "Red Bomber" or object.getName() == "Red Fighter" then
+            if distance <= 5 and object.getName() == "Red Bomber" then
+              --print(object.getName() .. " found. Revealing")
+              self.attachInvisibleHider("hide", false, {"Red"})
+              foundFigurine = true
+            end
+            if distance <= 3 and object.getName() == "Red Fighter" then
+              --print(object.getName() .. " found. Revealing")
+              self.attachInvisibleHider("hide", false, {"Red"})
+              foundFigurine = true
+            end
+            if distance <= 10 and object.getName() == "Red ISR" then
+              --print(object.getName() .. " found. Revealing")
+              self.attachInvisibleHider("hide", false, {"Red"})
+              foundFigurine = true
+            end
+          end
+        end
+    end
+    --print("[b]-------------------------[/b]")
+end
+
+
+--Used by findByDistance
+function findProximity(targetPos, object)
+    local objectPos = object.getPosition()
+    local xDistance = math.abs(targetPos.x - objectPos.x)
+    local zDistance = math.abs(targetPos.z - objectPos.z)
+    local distance = xDistance^2 + zDistance^2
+    return math.sqrt(distance)
+end
