@@ -1,6 +1,6 @@
 function onLoad()
   self.attachInvisibleHider("hide", true, {"Red"})
-  self.setDescription(6)
+  self.setDescription(50)
 end
 
 -- decrement fuel level at end of each turn
@@ -13,6 +13,40 @@ function onPlayerTurnEnd(player_color_end, player_color_next)
       self.destruct()
     end
   end
+end
+-- refueling function
+function filterObjectEnter(object)
+  -- body...
+  -- if fighter
+  if object.getName() == "Blue Fighter" then
+    print("Blue Fighter goes inside here")
+    objFuel = object.getDescription()
+    print(objFuel)
+    difference = 6 - objFuel -- calculated differnece between current and max fuel
+    object.setDescription("6") -- resets objects fuel
+    self.setDescription(self.getDescription() - difference) -- subtracts the difference from refuelers current fuel
+    return true
+  end
+  if object.getName() == "Blue Bomber" then
+    print("Blue Bomber Goes inside here")
+    objFuel = object.getDescription()
+    print(objFuel)
+    difference = 20 - objFuel
+    object.setDescription("20")
+    self.setDescription(self.getDescription() - difference) -- subtracts the difference from refuelers current fuel
+    return true
+  end
+  if object.getName() == "Blue ISR" then
+    print("Blue ISR Goes inside here")
+    objFuel = object.getDescription()
+    print(objFuel)
+    difference = 10 - objFuel
+    object.setDescription("10")
+    self.setDescription(self.getDescription() - difference) -- subtracts the difference from refuelers current fuel
+    return true
+  end
+  print("Doesn't go inside here")
+  return false
 end
 
 function onObjectDrop()

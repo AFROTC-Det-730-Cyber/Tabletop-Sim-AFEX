@@ -1,20 +1,6 @@
 function onLoad()
   self.attachInvisibleHider("hide", true, {"Red"})
-  self.setDescription(6)
 end
-
--- decrement fuel level at end of each turn
-function onPlayerTurnEnd(player_color_end, player_color_next)
-  -- body...
-  if player_color_end == "Blue" then
-    self.setDescription(self.getDescription() - 1)
-    if self.getDescription() == "0" then
-      print(self.getName() .. " ran out of fuel")
-      self.destruct()
-    end
-  end
-end
-
 function onObjectDrop()
  findByDistance()
 end

@@ -1,18 +1,31 @@
 function onLoad()
-  self.attachInvisibleHider("hide", true, {"Red"})
-  self.setDescription(6)
+  self.attachInvisibleHider("hide", true, {"Blue"})
 end
 
--- decrement fuel level at end of each turn
-function onPlayerTurnEnd(player_color_end, player_color_next)
+function filterObjectEnter(object)
   -- body...
-  if player_color_end == "Blue" then
-    self.setDescription(self.getDescription() - 1)
-    if self.getDescription() == "0" then
-      print(self.getName() .. " ran out of fuel")
-      self.destruct()
-    end
+  if object.getName() == "Red Refuel" then
+    print("Red Refuel goes inside here")
+    object.setDescription(50)
+    return true
   end
+  if object.getName() == "Red Fighter" then
+    print("Red Fighter goes inside here")
+    object.setDescription(6)
+    return true
+  end
+  if object.getName() == "Red Bomber" then
+    print("Red Bomber Goes inside here")
+    object.setDescription(20)
+    return true
+  end
+  if object.getName() == "Red ISR" then
+    print("Red ISR Goes inside here")
+    object.setDescription(10)
+    return true
+  end
+  print("Doesn't go inside here")
+  return false
 end
 
 function onObjectDrop()
@@ -21,52 +34,51 @@ end
 --Lists any figurine within 5 units of the tool.
 function findByDistance()
     local hexSize = 3
-
     --print("[b]---Find By Distance---[/b]")
     --This is very similar to how we did findByTag()
     --We are also using tag to narrow it down, which isn't strictly necessary
     local allObjects = getAllObjects()
     local foundFigurine = false
-    self.attachInvisibleHider("hide", true, {"Red"})
+    self.attachInvisibleHider("hide", true, {"Blue"})
 
     for _, object in ipairs(allObjects) do
             --I have a pre-written function to get distance to objects
           local distance = findProximity(object.getPosition(), self)
             --print("Distance" .. distance)
             --Here is the check for distance
-            if distance <= 6 * hexSize and object.getName() == "Red Bomber" then
+            if distance <= 6 * hexSize and object.getName() == "Blue Bomber" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
-            if distance <= 3 * hexSize and object.getName() == "Red Fighter" then
+            if distance <= 3 * hexSize and object.getName() == "Blue Fighter" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
-            if distance <= 10 * hexSize and object.getName() == "Red ISR" then
+            if distance <= 10 * hexSize and object.getName() == "Blue ISR" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
-            if distance <= 4 * hexSize and object.getName() == "Red Refuel" then
+            if distance <= 4 * hexSize and object.getName() == "Blue Refuel" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
-            if distance <= 7 * hexSize and object.getName() == "Red Base" then
+            if distance <= 7 * hexSize and object.getName() == "Blue Base" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
-            if distance <= 4 * hexSize and object.getName() == "Red SAM Site" then
+            if distance <= 4 * hexSize and object.getName() == "Blue SAM Site" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
-            if distance <= 3 * hexSize and object.getName() == "Red Airfield" then
+            if distance <= 3 * hexSize  and object.getName() == "Blue Airfield" then
               --print(object.getName() .. " found. Revealing")
-              self.attachInvisibleHider("hide", false, {"Red"})
+              self.attachInvisibleHider("hide", false, {"Blue"})
               foundFigurine = true
             end
     end

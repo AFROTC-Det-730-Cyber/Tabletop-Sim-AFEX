@@ -1,6 +1,6 @@
 function onLoad()
   self.attachInvisibleHider("hide", true, {"Red"})
-  self.setDescription(6)
+  self.setDescription(20)
 end
 
 -- decrement fuel level at end of each turn
